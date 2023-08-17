@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.94b14127.css","mappings":"yFAEA,qBAME,2BAA+B,CAF/B,WAAY,CACZ,UAEF","sources":["index.css"],"sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;700&display=swap');\n\nhtml,\nbody,\n#root,\n.app {\n  height: 100%;\n  width: 100%;\n  font-family: 'Hind', sans-serif;\n}"],"names":[],"sourceRoot":""}

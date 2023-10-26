@@ -25,6 +25,7 @@ Uploading profile pictures has been disabled on publicly accessible website.
 * Register new user
 * Create posts (The feature has been disabled on publicly accessible website)
 * Visit user Profile page
+* Search users - Type any character in the search bar and click the search icon
 
 ## Technologies used in this Full Stack Project
 

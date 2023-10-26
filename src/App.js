@@ -7,12 +7,11 @@ import { useSelector } from 'react-redux';
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from './theme';
-import React, { useRef } from 'react';
+import React from 'react';
 
 
 function App() {
   const mode = useSelector((state) => state.mode);
-  const user = useSelector((state) => state.user);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]); 
   const isAuth =  Boolean (useSelector((state) => state.token)); //to see if the token is null , that means user logged out
 

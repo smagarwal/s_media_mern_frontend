@@ -38,13 +38,14 @@ const UserWidget = ({ userId, picturePath}) => {
 
     useEffect(()=>{
         getUser();
+        
 
-    }, []); //eslint -disble-lilne react-hooks/exhaustive-deps
+    }, []);//eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(()=>{
         getUser();
 
-    }, [loggedUserFriends]);
+    }, [loggedUserFriends]); //eslint-disable-line react-hooks/exhaustive-deps
 
     //to prevent from going ahead for an empty user
     //can have a loading component here also 

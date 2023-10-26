@@ -49,10 +49,12 @@ const NavBar = () => {
     const fullName =`${user.firstName} ${user.lastName}`;
     
     const [anchorEl, setAnchorEl] = useState(null);
+    const [isLoading, setIsLoading ] = useState(false);
 
     const handleClick = (event) => {
+        setIsLoading(true);
       setAnchorEl(search_bar.current);
-     console.log(search_bar.current);
+    
     };
   
     const handleClose = () => {
@@ -71,9 +73,10 @@ const NavBar = () => {
     const id = open ? 'simple-popover' : undefined;
     
     const handleSearch = async ()=>{
-        console.log(filt_input);
+
 
         try {
+
             
             const response = await fetch(
 
@@ -90,8 +93,7 @@ const NavBar = () => {
             
             const filt_users = await response.json();
 
-            console.log(filt_users);
-
+            setIsLoading(false);
             setSearch_out(filt_users);
 
             //display
@@ -159,15 +161,23 @@ const NavBar = () => {
                             onClose={handleClose}
                             >
 
-                                {search_out.length === 0 && (
+                               {isLoading ?  <div style={{ 
+                                    width: '273px', 
+                                    }}>
+                                        <Typography > Loading... </Typography>
+                                    </div> 
+                                    : 
+
+
+                                search_out.length === 0  ? 
                                    <div style={{ 
                                     width: '273px', 
                                     }}>
                                         <Typography > No Users </Typography>
                                     </div>
-                                )}
+                                :
 
-                            {search_out.length > 0 && (
+                            
                                 <div style={{ 
                                     width: '273px', 
                                     }}>
@@ -181,8 +191,9 @@ const NavBar = () => {
                                     </MenuItem>
                                 ))}
                                 </div>
-                            )} 
-                           
+                                
+                                } 
+                             
                             </Popover>
 
                     </FlexBetween>

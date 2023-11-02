@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import AlertDialog from "./AlertDialog";
 
 
 const registerSchema = yup.object().shape({
@@ -43,8 +44,8 @@ const initialValuesRegister = {
 };
 
 const initialValuesLogin = {
-  email: "",
-  password: "",
+  email: "sorengill@mypage.com",
+  password: "123",
 };
 
 const Form = () => {
@@ -56,6 +57,8 @@ const Form = () => {
     const isLogin = pageType === "login";
     const isRegister = pageType === "register";
     const pictureDisabled = true; // as uploading picture is diabled 
+    const [isLoading, setIsLoading] = useState(false);
+    const [invalidUser, setInValidUser] = useState(false);
     
     const register = async (values, onSubmitProps) => {
         // this allows us to send form info with image
@@ -87,6 +90,9 @@ const Form = () => {
       };
     
       const login = async (values, onSubmitProps) => {
+
+        setIsLoading(true);
+
         const loggedInResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -96,14 +102,22 @@ const Form = () => {
         onSubmitProps.resetForm();
       
         if (loggedIn) {
+
+          console.log(loggedIn);
+          setIsLoading(false);
+
+          if(loggedIn.msg){
+            setInValidUser(true);
+          }else {
+            dispatch(
+              setLogin({
+                user: loggedIn.user,
+                token: loggedIn.token,
+              })
+            );
+            navigate("/home");
+          }
        
-          dispatch(
-            setLogin({
-              user: loggedIn.user,
-              token: loggedIn.token,
-            })
-          );
-          navigate("/home");
         }
       };
     
@@ -111,9 +125,30 @@ const Form = () => {
         if (isLogin) await login(values, onSubmitProps);
         if (isRegister) await register(values, onSubmitProps);
       };
-    
 
     return (
+
+      <>
+
+      {invalidUser && (
+
+      <AlertDialog 
+      openIt={true} 
+      closeInstruction={()=>{setInValidUser(false)}} 
+      title={"Invalid User"} 
+      contentText={"Please check user credentials"}/>
+      )}
+
+      {isLoading && (
+
+      <AlertDialog 
+      openIt={true} 
+      closeInstruction={()=>{setIsLoading(false)}} 
+      title={"Loading..."} 
+      contentText={"This might take a few seconds. Please wait..."}/>
+      )}
+
+
         <Formik
         onSubmit = {handleFormSubmit}
         initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
@@ -295,6 +330,8 @@ const Form = () => {
             )}
 
         </Formik>
+
+        </>
     );
 };
 

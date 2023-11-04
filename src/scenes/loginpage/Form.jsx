@@ -103,7 +103,6 @@ const Form = () => {
       
         if (loggedIn) {
 
-          console.log(loggedIn);
           setIsLoading(false);
 
           if(loggedIn.msg){

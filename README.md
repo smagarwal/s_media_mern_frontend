@@ -8,7 +8,8 @@ Visit the [Mypage website](https://mern-frontend.pages.dev/).
 
 The first page is the Login page. You can sign in using the following user credentials.\
 Email: `sorengill@mypage.com`
-Password: `123`
+Password: `123`\
+The values are pre-filled for convenience. The website might take a few seconds to load.
 
 OR\
 You can register a new user by signing up. You may register using any fictitious details, and then use the registered email id and password to login.\
